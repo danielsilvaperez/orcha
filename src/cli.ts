@@ -5,6 +5,7 @@ import {
   registerDoctorCommand,
   registerInitCommand,
   registerReplCommand,
+  registerSpeedrunCommand,
   registerTuiCommand,
   registerWorkflowCommand
 } from "./commands/index.js";
@@ -12,13 +13,14 @@ import {
 async function main(): Promise<void> {
   const program = new Command();
 
-  program.name("council").description("Multi-agent coding roundtable CLI").version("0.1.0");
+  program.name("orcha").description("Multi-agent project orchestration CLI").version("0.1.0");
 
   registerAskCommand(program);
   registerReplCommand(program);
   registerDoctorCommand(program);
   registerInitCommand(program);
   registerWorkflowCommand(program);
+  registerSpeedrunCommand(program);
   registerTuiCommand(program);
 
   if (process.argv.length === 2) {
@@ -31,6 +33,6 @@ async function main(): Promise<void> {
 
 main().catch((error) => {
   const message = error instanceof Error ? error.message : String(error);
-  console.error(`[council] ${message}`);
+  console.error(`[orcha] ${message}`);
   process.exit(1);
 });

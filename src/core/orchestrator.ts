@@ -4,20 +4,20 @@ import type {
   AgentExecutionEvent,
   AgentId,
   AgentResult,
-  CouncilConfig,
+  OrchaConfig,
   RunMode,
   RunRequest,
   RunResult,
   UsageStats
 } from "../types.js";
-import type { CouncilDatabase } from "../db/index.js";
+import type { OrchaDatabase } from "../db/index.js";
 import type { AdapterRegistry } from "../adapters/factory.js";
 import { runSynthesis } from "./synthesizer.js";
 
 export interface OrchestratorDependencies {
-  config: CouncilConfig;
+  config: OrchaConfig;
   adapters: AdapterRegistry;
-  db: CouncilDatabase;
+  db: OrchaDatabase;
 }
 
 export interface RunHooks {
@@ -36,7 +36,7 @@ interface AttemptResult {
   durationMs: number;
 }
 
-export class CouncilOrchestrator {
+export class OrchaOrchestrator {
   constructor(private readonly deps: OrchestratorDependencies) {}
 
   getCliAdapter(agent: AgentId): AgentAdapter | undefined {

@@ -2,33 +2,33 @@ import fs from "node:fs";
 import path from "node:path";
 import * as TOML from "@iarna/toml";
 import { defaultConfig } from "./defaults.js";
-import { councilConfigSchema } from "./schema.js";
+import { orchaConfigSchema } from "./schema.js";
 import { deepMerge, type DeepPartial } from "../utils/deepMerge.js";
 import { getGlobalConfigPath, getProjectConfigPath } from "../utils/path.js";
-import type { CouncilConfig } from "../types.js";
+import type { OrchaConfig } from "../types.js";
 
 export interface ConfigOverrides {
-  judgeAgent?: CouncilConfig["defaults"]["judgeAgent"];
+  judgeAgent?: OrchaConfig["defaults"]["judgeAgent"];
   timeoutMs?: number;
   allowApiFallback?: boolean;
   synthesis?: boolean;
-  agents?: CouncilConfig["defaults"]["judgeAgent"][];
+  agents?: OrchaConfig["defaults"]["judgeAgent"][];
 }
 
-function readTomlFile(filePath: string): DeepPartial<CouncilConfig> | undefined {
+function readTomlFile(filePath: string): DeepPartial<OrchaConfig> | undefined {
   if (!fs.existsSync(filePath)) {
     return undefined;
   }
 
   const raw = fs.readFileSync(filePath, "utf8");
-  return TOML.parse(raw) as DeepPartial<CouncilConfig>;
+  return TOML.parse(raw) as DeepPartial<OrchaConfig>;
 }
 
-export function toToml(config: CouncilConfig): string {
+export function toToml(config: OrchaConfig): string {
   return TOML.stringify(config as unknown as TOML.JsonMap);
 }
 
-export function loadConfig(cwd: string, overrides?: ConfigOverrides): CouncilConfig {
+export function loadConfig(cwd: string, overrides?: ConfigOverrides): OrchaConfig {
   const globalPath = getGlobalConfigPath();
   const localPath = getProjectConfigPath(cwd);
 
@@ -37,7 +37,7 @@ export function loadConfig(cwd: string, overrides?: ConfigOverrides): CouncilCon
 
   const merged = deepMerge(defaultConfig, globalConfig, projectConfig);
 
-  const overridePatch: DeepPartial<CouncilConfig> = {};
+  const overridePatch: DeepPartial<OrchaConfig> = {};
 
   if (overrides?.judgeAgent) {
     overridePatch.defaults = { ...overridePatch.defaults, judgeAgent: overrides.judgeAgent };
@@ -69,7 +69,7 @@ export function loadConfig(cwd: string, overrides?: ConfigOverrides): CouncilCon
   }
 
   const finalConfig = deepMerge(merged, overridePatch);
-  return councilConfigSchema.parse(finalConfig);
+  return orchaConfigSchema.parse(finalConfig);
 }
 
 export function ensureConfigDirExists(filePath: string): void {

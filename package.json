@@ -1,10 +1,10 @@
 {
-  "name": "council-cli",
+  "name": "agent-orcha",
   "version": "0.1.0",
-  "description": "Multi-agent coding roundtable CLI orchestrating Codex, Claude, Gemini, and Kimi.",
+  "description": "Multi-agent project orchestration CLI for Codex, Claude, Gemini, and Kimi collaboration.",
   "type": "module",
   "bin": {
-    "council": "dist/cli.js"
+    "orcha": "dist/cli.js"
   },
   "files": [
     "dist",

@@ -3,10 +3,11 @@ import path from "node:path";
 import crypto from "node:crypto";
 import BetterSqlite3 from "better-sqlite3";
 import type { AgentEvent, AgentResult, RunMode, RunRequest, RunResult, WorkflowSpec } from "../types.js";
+import type { SpeedrunResult, TaskResult } from "../speedrun/types.js";
 import { getDbPath } from "../utils/path.js";
 import { runMigrations } from "./migrations.js";
 
-export class CouncilDatabase {
+export class OrchaDatabase {
   private readonly db: BetterSqlite3.Database;
 
   constructor(dbPath: string = getDbPath()) {
@@ -140,5 +141,56 @@ export class CouncilDatabase {
         created_at: now,
         updated_at: now
       });
+  }
+
+  saveSpeedrun(result: SpeedrunResult): void {
+    const speedrunId = crypto.randomUUID();
+
+    this.db
+      .prepare(
+        `INSERT INTO speedruns (
+          id, scaffold_name, project_name, final_output, files_created_json,
+          duration_ms, started_at, ended_at
+        ) VALUES (
+          @id, @scaffold_name, @project_name, @final_output, @files_created_json,
+          @duration_ms, @started_at, @ended_at
+        )`
+      )
+      .run({
+        id: speedrunId,
+        scaffold_name: result.scaffoldName,
+        project_name: result.projectName,
+        final_output: result.finalOutput,
+        files_created_json: JSON.stringify(result.filesCreated),
+        duration_ms: result.durationMs,
+        started_at: result.startedAt,
+        ended_at: result.endedAt
+      });
+
+    const taskStmt = this.db.prepare(
+      `INSERT INTO speedrun_tasks (
+        id, speedrun_id, task_id, agent, status, output, files_created_json, error,
+        started_at, ended_at, duration_ms
+      ) VALUES (
+        @id, @speedrun_id, @task_id, @agent, @status, @output, @files_created_json, @error,
+        @started_at, @ended_at, @duration_ms
+      )`
+    );
+
+    for (const task of result.taskResults) {
+      taskStmt.run({
+        id: crypto.randomUUID(),
+        speedrun_id: speedrunId,
+        task_id: task.taskId,
+        agent: task.agent,
+        status: task.status,
+        output: task.output,
+        files_created_json: JSON.stringify(task.filesCreated),
+        error: task.error ?? null,
+        started_at: task.startedAt,
+        ended_at: task.endedAt,
+        duration_ms: task.durationMs
+      });
+    }
   }
 }

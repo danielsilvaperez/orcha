@@ -1,6 +1,6 @@
-import type { CouncilConfig } from "../types.js";
+import type { OrchaConfig } from "../types.js";
 
-export const defaultConfig: CouncilConfig = {
+export const defaultConfig: OrchaConfig = {
   version: 1,
   defaults: {
     judgeAgent: "codex",

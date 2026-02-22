@@ -16,7 +16,7 @@ const providerConfigSchema = z.object({
   apiKeyEnv: z.string().min(1)
 });
 
-export const councilConfigSchema = z.object({
+export const orchaConfigSchema = z.object({
   version: z.literal(1).default(1),
   defaults: z.object({
     judgeAgent: agentIdSchema.default("codex"),
@@ -40,4 +40,4 @@ export const councilConfigSchema = z.object({
   })
 });
 
-export type CouncilConfigInput = z.input<typeof councilConfigSchema>;
+export type OrchaConfigInput = z.input<typeof orchaConfigSchema>;

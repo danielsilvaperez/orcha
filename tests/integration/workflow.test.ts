@@ -3,8 +3,8 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, test } from "vitest";
 import { runWorkflow } from "../../src/workflows/index.js";
-import { CouncilOrchestrator } from "../../src/core/orchestrator.js";
-import { CouncilDatabase } from "../../src/db/index.js";
+import { OrchaOrchestrator } from "../../src/core/orchestrator.js";
+import { OrchaDatabase } from "../../src/db/index.js";
 import { defaultConfig } from "../../src/config/defaults.js";
 import type { AdapterRunRequest, AgentAdapter, AgentEvent } from "../../src/types.js";
 
@@ -33,8 +33,8 @@ class EchoAdapter implements AgentAdapter {
 
 describe("workflow engine", () => {
   test("loads and runs yaml workflow stages", async () => {
-    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "council-workflow-"));
-    const workflowDir = path.join(tempDir, ".council", "workflows");
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "orcha-workflow-"));
+    const workflowDir = path.join(tempDir, ".orcha", "workflows");
     fs.mkdirSync(workflowDir, { recursive: true });
 
     const yaml = `name: testflow
@@ -55,11 +55,11 @@ stages:
     fs.writeFileSync(path.join(workflowDir, "testflow.yaml"), yaml, "utf8");
 
     const config = structuredClone(defaultConfig);
-    const db = new CouncilDatabase(path.join(tempDir, "workflow.db"));
+    const db = new OrchaDatabase(path.join(tempDir, "workflow.db"));
     const echoCodex = new EchoAdapter("codex");
     const echoClaude = new EchoAdapter("claude");
 
-    const orchestrator = new CouncilOrchestrator({
+    const orchestrator = new OrchaOrchestrator({
       config,
       db,
       adapters: {

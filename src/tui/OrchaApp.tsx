@@ -2,8 +2,8 @@ import React, { useMemo, useRef, useState } from "react";
 import { Box, Text, useApp, useInput } from "ink";
 import TextInput from "ink-text-input";
 import Spinner from "ink-spinner";
-import type { AgentExecutionEvent, AgentId, AgentStatus, CouncilConfig } from "../types.js";
-import type { CouncilOrchestrator } from "../core/orchestrator.js";
+import type { AgentExecutionEvent, AgentId, AgentStatus, OrchaConfig } from "../types.js";
+import type { OrchaOrchestrator } from "../core/orchestrator.js";
 import { runSynthesis } from "../core/synthesizer.js";
 
 interface AgentPaneState {
@@ -15,9 +15,9 @@ interface AgentPaneState {
   source?: "cli" | "api";
 }
 
-interface CouncilAppProps {
-  config: CouncilConfig;
-  orchestrator: CouncilOrchestrator;
+interface OrchaAppProps {
+  config: OrchaConfig;
+  orchestrator: OrchaOrchestrator;
   cwd: string;
 }
 
@@ -66,7 +66,7 @@ function Panel({
   );
 }
 
-export function CouncilApp({ config, orchestrator, cwd }: CouncilAppProps) {
+export function OrchaApp({ config, orchestrator, cwd }: OrchaAppProps) {
   const { exit } = useApp();
   const [prompt, setPrompt] = useState("");
   const [running, setRunning] = useState(false);
@@ -306,7 +306,7 @@ export function CouncilApp({ config, orchestrator, cwd }: CouncilAppProps) {
     <Box flexDirection="column" padding={1}>
       <Box borderStyle="round" borderColor="green" paddingX={1} marginBottom={1}>
         <Text>
-          Council CLI {running ? <Spinner type="dots" /> : ""} {running ? " running" : " idle"}
+          Orcha CLI {running ? <Spinner type="dots" /> : ""} {running ? " running" : " idle"}
         </Text>
       </Box>
 

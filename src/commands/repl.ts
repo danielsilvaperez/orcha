@@ -4,8 +4,8 @@ import { stdin as input, stdout as output } from "node:process";
 import type { Command } from "commander";
 import { loadConfig } from "../config/load.js";
 import { createAdapterRegistry } from "../adapters/index.js";
-import { CouncilDatabase } from "../db/index.js";
-import { CouncilOrchestrator } from "../core/index.js";
+import { OrchaDatabase } from "../db/index.js";
+import { OrchaOrchestrator } from "../core/index.js";
 import { addCommonRunOptions, parseAgentList, resolveAgents, resolveWorkingDirectory, type RunCliOptions } from "./common.js";
 import { printRunResultHuman } from "./output.js";
 
@@ -26,15 +26,15 @@ export function registerReplCommand(program: Command): void {
 
       const agents = resolveAgents(config, explicitAgents);
 
-      const db = new CouncilDatabase();
+      const db = new OrchaDatabase();
       const sessionId = crypto.randomUUID();
       db.createSession(sessionId, "committee", cwd);
 
       const registry = createAdapterRegistry(config);
-      const orchestrator = new CouncilOrchestrator({ config, adapters: registry, db });
+      const orchestrator = new OrchaOrchestrator({ config, adapters: registry, db });
 
       const rl = readline.createInterface({ input, output });
-      console.log("Council REPL started. Type ':q' to quit.");
+      console.log("Orcha REPL started. Type ':q' to quit.");
 
       try {
         while (true) {

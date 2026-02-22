@@ -1,8 +1,8 @@
 import type { Command } from "commander";
 import { loadConfig } from "../config/load.js";
 import { createAdapterRegistry } from "../adapters/index.js";
-import { CouncilDatabase } from "../db/index.js";
-import { CouncilOrchestrator } from "../core/index.js";
+import { OrchaDatabase } from "../db/index.js";
+import { OrchaOrchestrator } from "../core/index.js";
 import { runWorkflow } from "../workflows/index.js";
 import { addCommonRunOptions, parseAgentList, resolveWorkingDirectory, type RunCliOptions } from "./common.js";
 
@@ -28,11 +28,11 @@ export function registerWorkflowCommand(program: Command): void {
       agents: explicitAgents
     });
 
-    const db = new CouncilDatabase();
+    const db = new OrchaDatabase();
 
     try {
       const registry = createAdapterRegistry(config);
-      const orchestrator = new CouncilOrchestrator({ config, adapters: registry, db });
+      const orchestrator = new OrchaOrchestrator({ config, adapters: registry, db });
       const result = await runWorkflow(orchestrator, {
         name,
         input: options.input,

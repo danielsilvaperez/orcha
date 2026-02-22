@@ -1,4 +1,4 @@
-import type { AgentAdapter, AgentId, CouncilConfig } from "../types.js";
+import type { AgentAdapter, AgentId, OrchaConfig } from "../types.js";
 import { ClaudeAdapter } from "./claudeAdapter.js";
 import { CodexAdapter } from "./codexAdapter.js";
 import { GeminiAdapter } from "./geminiAdapter.js";
@@ -15,7 +15,7 @@ export interface AdapterRegistry {
   apiFallbackAdapters: Partial<Record<AgentId, AgentAdapter>>;
 }
 
-export function createAdapterRegistry(config: CouncilConfig): AdapterRegistry {
+export function createAdapterRegistry(config: OrchaConfig): AdapterRegistry {
   const cliAdapters: Record<AgentId, AgentAdapter> = {
     codex: new CodexAdapter(config.agents.codex.cliPath ?? "codex"),
     claude: new ClaudeAdapter(config.agents.claude.cliPath ?? "claude"),

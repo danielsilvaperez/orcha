@@ -1,6 +1,6 @@
 import path from "node:path";
 import type { Command } from "commander";
-import type { AgentId, CouncilConfig } from "../types.js";
+import type { AgentId, OrchaConfig } from "../types.js";
 
 export interface RunCliOptions {
   agents?: string;
@@ -47,12 +47,12 @@ export function resolveWorkingDirectory(rawCwd: string | undefined): string {
   return path.resolve(rawCwd ?? process.cwd());
 }
 
-export function resolveAgents(config: CouncilConfig, explicitAgents?: AgentId[]): AgentId[] {
+export function resolveAgents(config: OrchaConfig, explicitAgents?: AgentId[]): AgentId[] {
   if (explicitAgents && explicitAgents.length > 0) {
     return explicitAgents;
   }
 
-  const enabledAgents = (Object.entries(config.agents) as Array<[AgentId, CouncilConfig["agents"][AgentId]]>)
+  const enabledAgents = (Object.entries(config.agents) as Array<[AgentId, OrchaConfig["agents"][AgentId]]>)
     .filter(([, value]) => value.enabled)
     .map(([agent]) => agent);
 

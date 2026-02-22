@@ -95,7 +95,7 @@ export interface AgentExecutionEvent {
   event: AgentEvent;
 }
 
-export interface CouncilAgentConfig {
+export interface OrchaAgentConfig {
   enabled: boolean;
   model?: string;
   timeoutMs?: number;
@@ -109,7 +109,7 @@ export interface ApiProviderConfig {
   apiKeyEnv: string;
 }
 
-export interface CouncilConfig {
+export interface OrchaConfig {
   version: 1;
   defaults: {
     judgeAgent: AgentId;
@@ -119,7 +119,7 @@ export interface CouncilConfig {
     outputMode: "raw_plus_synthesis" | "raw_only" | "synthesis_only";
     allowApiFallback: boolean;
   };
-  agents: Record<AgentId, CouncilAgentConfig>;
+  agents: Record<AgentId, OrchaAgentConfig>;
   apiFallback: {
     openai: ApiProviderConfig;
     anthropic: ApiProviderConfig;

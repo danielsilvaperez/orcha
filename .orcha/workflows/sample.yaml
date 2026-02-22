@@ -1,0 +1,20 @@
+name: sample
+version: 1
+stages:
+  - id: planner
+    role: planner
+    agent: codex
+    promptTemplate: |
+      You are planning a project.
+      User goal: {{input}}
+      Produce an implementation plan.
+    timeoutMs: 120000
+    onFailure: abort
+  - id: critic
+    role: critic
+    agent: claude
+    promptTemplate: |
+      Critique this plan and improve it:
+      {{stage.planner.output}}
+    timeoutMs: 120000
+    onFailure: continue

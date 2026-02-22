@@ -3,19 +3,19 @@ import React from "react";
 import type { Command } from "commander";
 import { loadConfig } from "../config/load.js";
 import { createAdapterRegistry } from "../adapters/index.js";
-import { CouncilDatabase } from "../db/index.js";
-import { CouncilOrchestrator } from "../core/index.js";
+import { OrchaDatabase } from "../db/index.js";
+import { OrchaOrchestrator } from "../core/index.js";
 import { resolveWorkingDirectory } from "./common.js";
-import { CouncilApp } from "../tui/CouncilApp.js";
+import { OrchaApp } from "../tui/OrchaApp.js";
 
 export async function launchTui(cwdInput?: string): Promise<void> {
   const cwd = resolveWorkingDirectory(cwdInput);
   const config = loadConfig(cwd);
   const registry = createAdapterRegistry(config);
-  const db = new CouncilDatabase();
-  const orchestrator = new CouncilOrchestrator({ config, adapters: registry, db });
+  const db = new OrchaDatabase();
+  const orchestrator = new OrchaOrchestrator({ config, adapters: registry, db });
 
-  const instance = render(React.createElement(CouncilApp, { config, orchestrator, cwd }));
+  const instance = render(React.createElement(OrchaApp, { config, orchestrator, cwd }));
 
   try {
     await instance.waitUntilExit();

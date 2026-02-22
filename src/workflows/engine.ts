@@ -4,7 +4,7 @@ import YAML from "yaml";
 import type { RunResult, WorkflowSpec } from "../types.js";
 import { workflowSpecSchema } from "./schema.js";
 import { getWorkflowDir } from "../utils/path.js";
-import type { CouncilOrchestrator } from "../core/orchestrator.js";
+import type { OrchaOrchestrator } from "../core/orchestrator.js";
 
 export interface WorkflowRunRequest {
   name: string;
@@ -43,7 +43,7 @@ export function loadWorkflowSpec(cwd: string, name: string): WorkflowSpec {
 }
 
 export async function runWorkflow(
-  orchestrator: CouncilOrchestrator,
+  orchestrator: OrchaOrchestrator,
   request: WorkflowRunRequest
 ): Promise<WorkflowRunResult> {
   const workflow = loadWorkflowSpec(request.cwd, request.name);

@@ -2,8 +2,8 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, test } from "vitest";
-import { CouncilOrchestrator } from "../../src/core/orchestrator.js";
-import { CouncilDatabase } from "../../src/db/index.js";
+import { OrchaOrchestrator } from "../../src/core/orchestrator.js";
+import { OrchaDatabase } from "../../src/db/index.js";
 import { defaultConfig } from "../../src/config/defaults.js";
 import type { AdapterRunRequest, AgentAdapter, AgentEvent, AgentId } from "../../src/types.js";
 
@@ -65,7 +65,7 @@ afterEach(() => {
 });
 
 function createDbPath(): string {
-  const file = path.join(os.tmpdir(), `council-test-${Date.now()}-${Math.random()}.db`);
+  const file = path.join(os.tmpdir(), `orcha-test-${Date.now()}-${Math.random()}.db`);
   tempFiles.push(file);
   return file;
 }
@@ -86,9 +86,9 @@ describe("orchestrator", () => {
       yield { type: "final", text: "late response", rawOutput: "late response" };
     });
 
-    const db = new CouncilDatabase(createDbPath());
+    const db = new OrchaDatabase(createDbPath());
     const config = structuredClone(defaultConfig);
-    const orchestrator = new CouncilOrchestrator({
+    const orchestrator = new OrchaOrchestrator({
       config,
       db,
       adapters: {
@@ -125,8 +125,8 @@ describe("orchestrator", () => {
     const config = structuredClone(defaultConfig);
     config.defaults.allowApiFallback = true;
 
-    const db = new CouncilDatabase(createDbPath());
-    const orchestrator = new CouncilOrchestrator({
+    const db = new OrchaDatabase(createDbPath());
+    const orchestrator = new OrchaOrchestrator({
       config,
       db,
       adapters: {

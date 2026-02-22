@@ -1,8 +1,8 @@
 import type { Command } from "commander";
 import { loadConfig } from "../config/load.js";
 import { createAdapterRegistry } from "../adapters/index.js";
-import { CouncilDatabase } from "../db/index.js";
-import { CouncilOrchestrator } from "../core/index.js";
+import { OrchaDatabase } from "../db/index.js";
+import { OrchaOrchestrator } from "../core/index.js";
 import { addCommonRunOptions, parseAgentList, resolveAgents, resolveWorkingDirectory, type RunCliOptions } from "./common.js";
 import { printRunResultHuman } from "./output.js";
 
@@ -25,10 +25,10 @@ export async function runAskPrompt(prompt: string, options: RunCliOptions): Prom
 
   const agents = resolveAgents(config, explicitAgents);
 
-  const db = new CouncilDatabase();
+  const db = new OrchaDatabase();
   try {
     const registry = createAdapterRegistry(config);
-    const orchestrator = new CouncilOrchestrator({
+    const orchestrator = new OrchaOrchestrator({
       config,
       adapters: registry,
       db

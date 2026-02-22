@@ -2,8 +2,9 @@ node_modules
 dist
 coverage
 .vscode
+.idea
 .DS_Store
 *.log
-.council.toml
-.council
-!/.council/workflows
+.orcha.toml
+.orcha
+!/.orcha/workflows

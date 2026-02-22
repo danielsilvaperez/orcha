@@ -30,8 +30,8 @@ stages:
 export function registerInitCommand(program: Command): void {
   program
     .command("init")
-    .description("Bootstrap global and optional local council config")
-    .option("--with-local", "Also create project .council.toml")
+    .description("Bootstrap global and optional local orcha config")
+    .option("--with-local", "Also create project .orcha.toml")
     .option("--force", "Overwrite existing config files")
     .action((options: { withLocal?: boolean; force?: boolean }) => {
       const globalConfigPath = getGlobalConfigPath();

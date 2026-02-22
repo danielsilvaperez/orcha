@@ -2,7 +2,7 @@ import type { Command } from "commander";
 import fs from "node:fs";
 import { loadConfig } from "../config/load.js";
 import { createAdapterRegistry } from "../adapters/index.js";
-import { CouncilDatabase } from "../db/index.js";
+import { OrchaDatabase } from "../db/index.js";
 import { getGlobalConfigPath, getProjectConfigPath } from "../utils/path.js";
 import { resolveWorkingDirectory } from "./common.js";
 
@@ -16,14 +16,14 @@ export function registerDoctorCommand(program: Command): void {
       const config = loadConfig(cwd);
       const registry = createAdapterRegistry(config);
 
-      console.log("Council doctor\n");
+      console.log("Orcha doctor\n");
 
       const globalConfigPath = getGlobalConfigPath();
       const localConfigPath = getProjectConfigPath(cwd);
       console.log(`Global config: ${globalConfigPath} (${fs.existsSync(globalConfigPath) ? "found" : "missing"})`);
       console.log(`Project config: ${localConfigPath} (${fs.existsSync(localConfigPath) ? "found" : "missing"})`);
 
-      const db = new CouncilDatabase();
+      const db = new OrchaDatabase();
       db.close();
       console.log("Database: ok\n");
 
