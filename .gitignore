@@ -1,0 +1,10 @@
+node_modules
+dist
+coverage
+.vscode
+.idea
+.DS_Store
+*.log
+.orcha.toml
+.orcha
+!/.orcha/workflows
