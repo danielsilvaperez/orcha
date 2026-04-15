@@ -1,7 +1,7 @@
 {
   "name": "orcha",
   "version": "0.1.0",
-  "description": "Multi-agent project orchestration CLI for Codex, Claude, Gemini, and Kimi collaboration.",
+  "description": "Dependency-aware multi-agent orchestration CLI for parallel software execution across Codex, Claude, Gemini, and Kimi.",
   "type": "module",
   "bin": {
     "orcha": "dist/cli.js"

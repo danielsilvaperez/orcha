@@ -1,8 +1,8 @@
-# Agent Orcha
+# Orcha
 
-Agent Orcha is a multi-agent project orchestration CLI that orchestrates **Codex, Claude, Gemini, and Kimi** to collaborate on large-scale software projects.
+**Orcha** is a multi-agent orchestration CLI for turning ambitious software briefs into coordinated parallel execution across **Codex, Claude, Gemini, and Kimi**.
 
-Unlike simple multi-agent chat, Orcha enables **efficient parallel collaboration** by leveraging each tool's strengths and subagent capabilities.
+Unlike simple multi-agent chat, Orcha is built around dependency-aware scaffolds, subagent leverage, and structured merge steps so multi-model collaboration produces shippable project output rather than disconnected answers.
 
 ## Install
 
@@ -146,7 +146,7 @@ LLM-powered applications
 
 Run `orcha init` to bootstrap defaults.
 
-## Why Council?
+## Why Orcha?
 
 | Approach | Limitation | Orcha Solution |
 |----------|-----------|------------------|
