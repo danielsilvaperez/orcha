@@ -1,5 +1,5 @@
 {
-  "name": "agent-orcha",
+  "name": "orcha",
   "version": "0.1.0",
   "description": "Multi-agent project orchestration CLI for Codex, Claude, Gemini, and Kimi collaboration.",
   "type": "module",
