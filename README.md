@@ -4,6 +4,19 @@
 
 Unlike simple multi-agent chat, Orcha is built around dependency-aware scaffolds, subagent leverage, and structured merge steps so multi-model collaboration produces shippable project output rather than disconnected answers.
 
+## At a Glance
+
+| Dimension | Summary |
+| --- | --- |
+| Core idea | Convert one software brief into a coordinated multi-agent execution plan |
+| Best for | Rapid prototyping, scaffold generation, and parallel implementation workflows |
+| Differentiator | Dependency-aware batching plus subagent leverage across multiple model families |
+| Output | Working project scaffolds, task graphs, and merge-ready implementation artifacts |
+
+## What Orcha Optimizes For
+
+Orcha is built for builders who care about throughput without surrendering structure. It does not simply ask several models the same question. It distributes work, respects dependency order, and turns parallel agent effort into something closer to a delivery pipeline than a brainstorm.
+
 ## Install
 
 ```bash
@@ -16,6 +29,16 @@ For global usage:
 ```bash
 npm i -g .
 ```
+
+## Fast First Command
+
+```bash
+orcha speedrun run fullstack-app \
+  -n my-project \
+  -d "A task management app with real-time collaboration"
+```
+
+This is the quickest way to see Orcha's orchestration model in action: one brief, multiple agents, explicit task dependencies, and a structured output directory.
 
 ## Commands
 
